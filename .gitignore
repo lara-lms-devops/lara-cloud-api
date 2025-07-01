@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/certificate/
+### Folder where k3s will output the kubeconfig file ###
+/src/main/resources/k3s-compose-output

@@ -9,6 +9,6 @@ import java.util.UUID;
 @NoRepositoryBean
 public interface BaseJpaRepository<T extends BaseJpaEntity> extends CrudRepository<T, UUID> {
     // FIXME: implement the behavior
-    void softDelete(T entity);
-    void softDeleteByUuid(UUID uuid);
+//    void softDelete(T entity);
+//    void softDeleteByUuid(UUID uuid);
 }

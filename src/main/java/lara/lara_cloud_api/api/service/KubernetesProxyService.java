@@ -19,7 +19,7 @@ public class KubernetesProxyService {
 
     @Value("${kubernetes.api.url}")
     private String kubernetesUrl;
-
+// FIXME get the JWT using the kubernetes client or other way
     public ProxyDto<String> createKubernetesProxyDto(String endpointUrl,
                                                      HttpServletRequest request,
                                                      String body) {
