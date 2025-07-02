@@ -10,8 +10,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: lara_cloud
-    volumes:
-      - ./src/main/resources/data/init.sql:/docker-entrypoint-initdb.d/init.sql
+#    volumes:
+#      - ./src/main/resources/data/init.sql:/docker-entrypoint-initdb.d/init.sql
   k3s:
     image: rancher/k3s
     privileged: true
