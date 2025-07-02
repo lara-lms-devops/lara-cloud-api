@@ -1,5 +1,6 @@
 package lara.lara_cloud_api.api.factory;
 
+import io.kubernetes.client.openapi.Pair;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,8 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.util.Optional.ofNullable;
 
@@ -47,11 +47,27 @@ public class ProxyFactory {
         return HttpMethod.valueOf(request.getMethod());
     }
 
-    private String getProxyPath(String endpointPath, HttpServletRequest request) {
+    public String getProxyPath(String endpointPath, HttpServletRequest request) {
         return request.getRequestURI().replaceFirst(endpointPath, "");
     }
 
     private @Nullable String getQueryString(HttpServletRequest request) {
         return request.getQueryString();
     }
+
+    public List<Pair> getQueryParams(HttpServletRequest request) {
+        var queryParamMap = request.getParameterMap();
+
+        return queryParamMap.keySet().stream()
+                .map(key -> createPairs(key, queryParamMap.get(key)))
+                .flatMap(Collection::stream)
+                .toList();
+    }
+
+    private List<Pair> createPairs(String name, String[] values) {
+        return Arrays.stream(values)
+                .map(value -> new Pair(name, value))
+                .toList();
+    }
+
 }

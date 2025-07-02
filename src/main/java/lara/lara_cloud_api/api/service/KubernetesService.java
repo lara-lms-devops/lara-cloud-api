@@ -4,6 +4,7 @@ import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Namespace;
 import lara.lara_cloud_api.api.entities.request.OrganizationRequest;
+import lara.lara_cloud_api.api.error.exception.HttpStatusException;
 import lara.lara_cloud_api.api.factory.KubernetesFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class KubernetesService {
                     .execute()
                     .getItems();
         } catch (ApiException e) {
-            throw new RuntimeException(e); // TODO improve
+            throw new HttpStatusException(e.getCode(), e.getMessage());
         }
     }
 
@@ -33,7 +34,7 @@ public class KubernetesService {
             return kubernetes.createNamespace(namespace)
                     .execute();
         } catch (ApiException e) {
-            throw new RuntimeException(e); // TODO map this to a HTTP exception later on
+            throw new HttpStatusException(e.getCode(), e.getMessage());
         }
     }
 }

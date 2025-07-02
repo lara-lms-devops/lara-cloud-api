@@ -1,0 +1,1 @@
+sed -i 's/127.0.0.1/localhost/g' ./src/main/resources/k3s-compose-output/kubeconfig.yaml
